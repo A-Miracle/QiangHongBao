@@ -19,14 +19,14 @@
 - 第一个版本
 
 ## 下载地址
-GitHub：https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/app-debug.apk
+GitHub：https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/app-debug.apk<br>
 [点击下载](https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/app-debug.apk)
 
 ## 关于作者
 QQ：1670562337<br>
 Email：miracle.soar@qq.com
 
-##参考资源
+## 参考资源
 - https://github.com/lendylongli/qianghongbao
 
 ## License
