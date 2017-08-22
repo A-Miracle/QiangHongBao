@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="ate_key" format="string" />
+
+    <declare-styleable name="ATEPreference">
+        <attr name="ateKey_pref" format="string" />
+    </declare-styleable>
+</resources>

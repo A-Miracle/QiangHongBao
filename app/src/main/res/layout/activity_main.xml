@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_toolbar" />
+
+    <Button
+        android:id="@+id/bt_state"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="#F6F6F6"
+        android:textColor="#666666"
+        android:textSize="13sp"
+        tools:text="已连接抢红包服务" />
+
+    <FrameLayout
+        android:id="@+id/fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

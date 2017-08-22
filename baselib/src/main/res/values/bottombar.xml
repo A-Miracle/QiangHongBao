@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BottomBar">
+        <attr name="bb_tabXmlResource" format="reference" />
+        <attr name="bb_tabletMode" format="boolean" />
+        <attr name="bb_behavior">
+            <flag name="shifting" value="1" />
+            <flag name="shy" value="2" />
+            <flag name="underNavbar" value="4" />
+        </attr>
+        <attr name="bb_inActiveTabAlpha" format="float" />
+        <attr name="bb_activeTabAlpha" format="float" />
+        <attr name="bb_inActiveTabColor" format="color" />
+        <attr name="bb_activeTabColor" format="color" />
+        <attr name="bb_badgeBackgroundColor" format="color" />
+        <attr name="bb_titleTextAppearance" format="reference" />
+        <attr name="bb_titleTypeFace" format="string" />
+        <attr name="bb_showShadow" format="boolean" />
+    </declare-styleable>
+
+    <bool name="bb_bottom_bar_is_tablet_mode">false</bool>
+    <bool name="bb_bottom_bar_is_portrait_mode">true</bool>
+
+    <color name="bb_inActiveBottomBarItemColor">#747474</color>
+    <color name="bb_darkBackgroundColor">#212121</color>
+    <color name="bb_tabletRightBorderDark">#505050</color>
+
+    <dimen name="bb_height">56dp</dimen>
+
+    <style name="BB_BottomBarItem">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:layout_width">wrap_content</item>
+        <!-- layout_height is ignored since the height is set programmatically in BottomBar
+        .updateItems() -->
+        <item name="android:layout_height">@dimen/bb_height</item>
+    </style>
+
+    <style name="BB_BottomBarItem_TitleStyle">
+        <!-- Material spec: "Avoid long text labels as these labels do not truncate or wrap." -->
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="BB_BottomBarItem_Fixed.TitleAppearance" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="BB_BottomBarItem_Shifting.TitleAppearance" parent="BB_BottomBarItem_Fixed.TitleAppearance">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="BB_BottomBarItem_Tablet">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="BB_BottomBarBadge_Text" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+</resources>

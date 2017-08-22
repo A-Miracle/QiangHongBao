@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<accessibility-service
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/accessibility_description"
+    android:accessibilityEventTypes="typeNotificationStateChanged|typeWindowStateChanged|typeWindowContentChanged"
+    android:packageNames="com.tencent.mm,com.tencent.mobileqq,com.tencent.tim"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:notificationTimeout="100"
+    android:accessibilityFlags="flagDefault"
+    android:canRetrieveWindowContent="true"/>
+<!--
+android:description
+    这个是设置服务的描述，在用户授权的界面可以看到。
+
+android:accessibilityEventTypes
+    这个是配置要监听的辅助事件，我们只需要用到typeNotificationStateChanged(通知变化事件)、typeWindowStateChanged(界面变化事件)
+
+android:packageNames
+    这个是要监听应用的包名，如果要监听多个应用，则用,去分隔，这里我们只需要监听微信的就可以了
+
+android:accessibilityFeedbackType
+    这个是设置反馈方式
+        feedbackSpoken	语音反馈
+        feedbackHaptic	触感反馈
+        feedbackAudible	表示声音(不是语音)反馈
+        feedbackVisual	视觉反馈
+        feedbackGeneric	通用反馈
+        feedbackAllMask	所有以上的反馈
+-->

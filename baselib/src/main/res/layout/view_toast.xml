@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv_group"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:gravity="center"
+    android:padding="0dp"
+    android:background="@null"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true"
+    app:cardMaxElevation="0dp"
+    app:contentPadding="0dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="#AA000000"
+    app:cardCornerRadius="5dp">
+
+    <TextView
+        android:id="@+id/tv_toast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center"
+        android:paddingBottom="9dp"
+        android:paddingLeft="17dp"
+        android:paddingRight="17dp"
+        android:paddingTop="9dp"
+        android:shadowColor="#BB000000"
+        android:shadowRadius="2.75"
+        android:textColor="#FFFFFFFF" />
+</android.support.v7.widget.CardView>

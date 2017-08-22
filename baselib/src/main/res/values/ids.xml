@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--status_bar 占位Id-->
+    <item name="status_bar" type="id"/>
+    <!--navigation_bar 占位Id-->
+    <item name="navigation_bar" type="id"/>
+    <!--挂件other_pendant 占位Id-->
+    <item name="other_pendant" type="id"/>
+</resources>

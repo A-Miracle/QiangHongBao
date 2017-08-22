@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    app:elevation="0dp"
+    tools:background="@color/colorPrimary">
+
+    <!--app:navigationIcon="?attr/homeAsUpIndicator"-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <TextView
+            android:id="@+id/tv_toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingLeft="13dp"
+            android:paddingRight="13dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/abc_text_size_title_material_toolbar"
+            android:visibility="gone"
+            tools:text="标题"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tv_menu_right_1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingLeft="13dp"
+            android:paddingRight="13dp"
+            android:textColor="@color/text_color_select"
+            android:textSize="@dimen/abc_text_size_title_material_toolbar"
+            android:visibility="gone"
+            tools:text="菜单一"
+            tools:visibility="visible" />
+    </android.support.v7.widget.Toolbar>
+</android.support.design.widget.AppBarLayout>

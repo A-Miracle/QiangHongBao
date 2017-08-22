@@ -1,0 +1,15 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!--window默认是黑色配置是否透明(window是最顶级，在decoreView的外面)-->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="ate_key">default_theme</item>
+    </style>
+
+</resources>
