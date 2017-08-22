@@ -22,6 +22,9 @@
 GitHub：https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/app-debug.apk<br>
 [点击下载](https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/app-debug.apk)
 
+## 截图
+![](https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/pic/01.jpg)
+
 ## 关于作者
 QQ：1670562337<br>
 Email：miracle.soar@qq.com
