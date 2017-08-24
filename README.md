@@ -18,6 +18,11 @@
 
 - 第一个版本
 
+`v 1.1`
+
+- 第二个版本, 增加微信红包设置
+- [点击下载](https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/app-debug-v1.1.apk)
+
 ## 下载地址
 GitHub：https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/app-debug.apk<br>
 [点击下载](https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/app-debug.apk)
