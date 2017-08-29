@@ -20,15 +20,26 @@
 
 `v 1.1.0`
 
-- **最新版:** 增加微信红包设置, 优化
-- [点击下载](https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/QHB-V1.1.1.apk)
+- 更新微信抢红包设置
 
-## 下载地址
-GitHub：https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/app-debug.apk<br>
-[点击下载](https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/app-debug.apk)
+`v 1.1.1`
+
+- 细节优化
+
+`v 1.1.2`
+
+- 依赖Github, 添加检查更新功能
+
+- **最新版:** [点击下载](https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/QHB-V1.1.2.apk)
+
 
 ## 截图
 ![](https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/pic/01.jpg)
+![](https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/pic/02.jpg)
+![](https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/pic/03.jpg)
+![](https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/pic/04.jpg)
+![](https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/pic/05.jpg)
+![](https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/pic/06.jpg)
 
 ## 关于作者
 QQ：1670562337<br>
