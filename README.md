@@ -1,4 +1,4 @@
-# 快手抢红包
+# 快手抢红包(源码不再更新, 只更新最新包)
 ![](https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/app/src/main/res/mipmap-xxhdpi/ic_launcher.png)
 
 ## 前言
@@ -20,8 +20,8 @@
 
 `v 1.1.0`
 
-- 最新版, 增加微信红包设置
-- [点击下载](https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/QHB-V1.1.0.apk)
+- **最新版:** 增加微信红包设置, 优化
+- [点击下载](https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/QHB-V1.1.1.apk)
 
 ## 下载地址
 GitHub：https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/app-debug.apk<br>
