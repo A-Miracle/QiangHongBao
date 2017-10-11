@@ -1,13 +1,20 @@
 package com.ctao.qhb.service;
 
 import android.accessibilityservice.AccessibilityService;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
 import android.view.accessibility.AccessibilityEvent;
 
 import com.ctao.baselib.utils.LogUtils;
 import com.ctao.baselib.utils.ToastUtils;
 import com.ctao.qhb.App;
+import com.ctao.qhb.Config;
 import com.ctao.qhb.event.MessageEvent;
 import com.ctao.qhb.job.IAccessibilityJob;
+import com.ctao.qhb.utils.PackageUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -28,11 +35,28 @@ public final class QHBService extends AccessibilityService {
     private List<IAccessibilityJob> mAccessibilityJobs;
     private HashMap<String, IAccessibilityJob> mPkgAccessibilityJobMap;
     private QHBNotificationManager mQHBNotificationManager;
+    private PackageInfo mWeChatPackageInfo;
+    private PackageInfo mQQPackageInfo;
+    private PackageInfo mTIMPackageInfo;
+
+    public PackageInfo getWeChatPackageInfo(){
+        return mWeChatPackageInfo;
+    }
 
     @Override
     public void onCreate() {
         EventBus.getDefault().register(this);
         super.onCreate();
+
+        updatePackageInfo();
+
+        IntentFilter filter = new IntentFilter();
+        filter.addDataScheme("package"); // 一个过滤
+        filter.addAction(Intent.ACTION_PACKAGE_ADDED);
+        filter.addAction(Intent.ACTION_PACKAGE_REPLACED);
+        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        registerReceiver(mBroadcastReceiver, filter);
+
         App.getApp().initJobs(this);
         mAccessibilityJobs = App.getApp().getAccessibilityJobs();
         mPkgAccessibilityJobMap = App.getApp().getPkgAccessibilityJobMap();
@@ -46,6 +70,7 @@ public final class QHBService extends AccessibilityService {
         EventBus.getDefault().post(new MessageEvent(MessageEvent.QHB_SERVICE_STATE, false));
         EventBus.getDefault().unregister(this);
         mQHBNotificationManager.stopNotification();
+        unregisterReceiver(mBroadcastReceiver);
         super.onDestroy();
         LogUtils.printOut(TAG, "QHBService onDestroy");
         if(mPkgAccessibilityJobMap != null) {
@@ -118,6 +143,34 @@ public final class QHBService extends AccessibilityService {
         builder.append("; ItemCount: ").append(event.getItemCount());
         builder.append("; ParcelableData: ").append(event.getParcelableData());
         return builder.toString();
+    }
+
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // 更新安装包信息
+            updatePackageInfo();
+        }
+    };
+
+    /** 更新微信包信息*/
+    private void updatePackageInfo() {
+        EventBus.getDefault().post(new MessageEvent(MessageEvent.QHB_PACKAGE_INFO_UPDATE));
+        mWeChatPackageInfo = PackageUtils.getPackageInfo(Config.PACKAGE_NAME_WX);
+        if(mWeChatPackageInfo != null){
+            LogUtils.printOut("WeChat VersionName : " + mWeChatPackageInfo.versionName);
+            LogUtils.printOut("WeChat VersionCode : " + mWeChatPackageInfo.versionCode);
+        }
+        mQQPackageInfo = PackageUtils.getPackageInfo(Config.PACKAGE_NAME_QQ);
+        if(mQQPackageInfo != null){
+            LogUtils.printOut("QQ VersionName : " + mQQPackageInfo.versionName);
+            LogUtils.printOut("QQ VersionCode : " + mQQPackageInfo.versionCode);
+        }
+        mTIMPackageInfo = PackageUtils.getPackageInfo(Config.PACKAGE_NAME_TIM);
+        if(mTIMPackageInfo != null){
+            LogUtils.printOut("TIM VersionName : " + mTIMPackageInfo.versionName);
+            LogUtils.printOut("TIM VersionCode : " + mTIMPackageInfo.versionCode);
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

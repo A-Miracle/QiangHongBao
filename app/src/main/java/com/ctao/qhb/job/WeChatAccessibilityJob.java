@@ -3,12 +3,7 @@ package com.ctao.qhb.job;
 import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Parcelable;
 import android.os.SystemClock;
 import android.view.accessibility.AccessibilityEvent;
@@ -16,7 +11,9 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.ctao.baselib.Global;
 import com.ctao.baselib.utils.LogUtils;
+import com.ctao.qhb.Config;
 import com.ctao.qhb.Statistics;
+import com.ctao.qhb.job.config.WeChatConfig;
 import com.ctao.qhb.service.QHBService;
 import com.ctao.qhb.utils.AccessibilityUtils;
 import com.ctao.qhb.utils.NotifyUtils;
@@ -55,7 +52,6 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
     private int mAppState = APP_STATE_FOREGROUND;
     private int mCurrentWindow = WINDOW_OTHER;
     private boolean isReceived; // 收到红包
-    private PackageInfo mWeChatPackageInfo; // PackageInfo
     private boolean isSilence; // 沉默, 防止没抢到红包而反复点
 
     // 微信6.5.10; versionCode = 1080;-----------------------------------
@@ -67,26 +63,20 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
     private final static String LABEL_2 = "给你发了一个红包";
     private final static String LABEL_3 = "发了一个红包，金额随机";
 
-    private final static String ID_BUTTON_OPEN = "com.tencent.mm:id/bnr"; // '开'
-    private final static String ID_GROUP_NAME = "com.tencent.mm:id/gs"; // 聊天标题
-    private final static String ID_LIST_MSG_ITEM = "com.tencent.mm:id/aie"; // 聊天记录列表中Item
-    private final static String ID_LIST_MSG_RED = "com.tencent.mm:id/i8"; // 聊天记录列表中Item小圆点
-    private final static String ID_LIST_MSG_LABEL = "com.tencent.mm:id/aii"; // 聊天记录列表中Item最新消息
-    private final static String ID_LIST_MSG = "com.tencent.mm:id/bpl"; // 聊天记录列表
-    private final static String ID_LIST_CHAT = "com.tencent.mm:id/a4l"; // 当前会话列表
-    private final static String ID_LIST_CHAT_ITEM = "com.tencent.mm:id/q"; // ItemView, clickable=false;
-    private final static String ID_LIST_CHAT_ITEM_VIEW = "com.tencent.mm:id/a7i"; // 红包ItemView, clickable=true;
-    private final static String ID_LIST_CHAT_ITEM_TEXT = "com.tencent.mm:id/ij"; // 文本ItemView, clickable=true;
+    private static String ID_BUTTON_OPEN = "com.tencent.mm:id/bnr"; // '开'
+    private static String ID_GROUP_NAME = "com.tencent.mm:id/gs"; // 聊天标题
 
-    // 微信6.5.10; versionCode = 1080;-----------------------------------
+    private static String ID_LIST_MSG_ITEM = "com.tencent.mm:id/aie"; // 聊天记录列表中Item
+    private static String ID_LIST_MSG_RED = "com.tencent.mm:id/i8"; // 聊天记录列表中Item小圆点
+    private static String ID_LIST_MSG_LABEL = "com.tencent.mm:id/aii"; // 聊天记录列表中Item最新消息
+    private static String ID_LIST_MSG = "com.tencent.mm:id/bpl"; // 聊天记录列表
 
-    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            // 更新安装包信息
-            updatePackageInfo();
-        }
-    };
+    private static String ID_LIST_CHAT = "com.tencent.mm:id/a4l"; // 当前会话列表
+    private static String ID_LIST_CHAT_ITEM = "com.tencent.mm:id/q"; // ItemView, clickable=false;
+    private static String ID_LIST_CHAT_ITEM_VIEW = "com.tencent.mm:id/a7i"; // 红包ItemView, clickable=true;
+    private static String ID_LIST_CHAT_ITEM_TEXT = "com.tencent.mm:id/ij"; // 文本ItemView, clickable=true;
+
+    // 微信6.5.13; versionCode = 1100;-----------------------------------
 
     @Override
     public boolean isEnable() {
@@ -101,36 +91,36 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
     @Override
     public void onCreate(QHBService service) {
         super.onCreate(service);
-
-        updatePackageInfo();
-
-        IntentFilter filter = new IntentFilter();
-        filter.addDataScheme("package"); // 一个过滤
-        filter.addAction(Intent.ACTION_PACKAGE_ADDED);
-        filter.addAction(Intent.ACTION_PACKAGE_REPLACED);
-        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
-
-        context().registerReceiver(mBroadcastReceiver, filter);
+        updateConfig();
     }
 
-    @Override
-    public void onDestroy() {
-        try {
-            context().unregisterReceiver(mBroadcastReceiver);
-        } catch (Exception e) {
-            LogUtils.e(e);
-        }
-    }
+    /** 根据对应版本配置 */
+    private void updateConfig() {
+        WeChatConfig config = new WeChatConfig();
+        int versionCode = mService.getWeChatPackageInfo().versionCode;
+        WeChatConfig.Value value = null;
 
-    /** 更新微信包信息*/
-    private void updatePackageInfo() {
-        try {
-            mWeChatPackageInfo = context().getPackageManager().getPackageInfo(PACKAGE_NAME, 0);
-            LogUtils.printOut("WeChat VersionName : " + mWeChatPackageInfo.versionName);
-            LogUtils.printOut("WeChat VersionCode : " + mWeChatPackageInfo.versionCode);
-        } catch (PackageManager.NameNotFoundException e) {
-            LogUtils.e(e);
+        if(versionCode >= WeChatConfig.V_1100){
+            value = config.getVersion(WeChatConfig.V_1100);
+        }else if(versionCode >= WeChatConfig.V_1080){
+            value = config.getVersion(WeChatConfig.V_1080);
         }
+
+        if(value == null){
+            return;
+        }
+        ID_BUTTON_OPEN = value.ID_BUTTON_OPEN;
+        ID_GROUP_NAME = value.ID_GROUP_NAME;
+
+        ID_LIST_MSG_ITEM = value.ID_LIST_MSG_ITEM;
+        ID_LIST_MSG_RED = value.ID_LIST_MSG_RED;
+        ID_LIST_MSG_LABEL = value.ID_LIST_MSG_LABEL;
+        ID_LIST_MSG = value.ID_LIST_MSG;
+
+        ID_LIST_CHAT = value.ID_LIST_CHAT;
+        ID_LIST_CHAT_ITEM = value.ID_LIST_CHAT_ITEM;
+        ID_LIST_CHAT_ITEM_VIEW = value.ID_LIST_CHAT_ITEM_VIEW;
+        ID_LIST_CHAT_ITEM_TEXT = value.ID_LIST_CHAT_ITEM_TEXT;
     }
 
     /** 微信是否运行在前台 */
@@ -193,7 +183,7 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
         if (!texts.isEmpty()) {
             String text = String.valueOf(texts.get(0));
             LogUtils.printOut(TAG, text);
-            int index = text.indexOf(":");
+            int index = text.lastIndexOf(":");
             if(index != -1) {
                 text = text.substring(index + 1);
             }
@@ -201,11 +191,19 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
                 isReceived = true;
                 Notification nf = (Notification) data;
                 PendingIntent pendingIntent = nf.contentIntent;
-                if(NotifyUtils.isLockScreen(context())) {  // 是否为锁屏或黑屏状态
-                    NotifyUtils.showNotify(context(), String.valueOf(nf.tickerText), pendingIntent); // 显示有红包通知
+                if(NotifyUtils.isLockScreen()) {  // 是否为锁屏或黑屏状态
+                    if(config().isLockScreenRob()){
+                        NotifyUtils.wakeAndUnlock();
+                        NotifyUtils.send(pendingIntent); // 打开微信
+                    }else{
+                        NotifyUtils.showNotify(context(), String.valueOf(nf.tickerText), pendingIntent); // 显示有红包通知
+                    }
                 } else {
                     NotifyUtils.send(pendingIntent); // 打开微信
                 }
+
+                // 播放声音和震动
+                NotifyUtils.playEffect(context(), config());
             }
         }
     }
@@ -262,7 +260,7 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
         // 直接去获取当前会话的最后一条Item, 不为null, 则是当前会话列表
         AccessibilityNodeInfo item = AccessibilityUtils.findNodeInfosByIdLast(nodeInfo, ID_LIST_CHAT_ITEM);
         if(item != null){
-            if(isSilence){ // 沉默中, return
+            if(isSilence && mService.getWeChatPackageInfo().versionCode < WeChatConfig.V_1100){ // 沉默中, return
                 return;
             }
             clickLastMsg(nodeInfo);
@@ -278,7 +276,7 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
                 if(label != null){
                     String text = String.valueOf(label.getText());
                     LogUtils.printOut(TAG, text);
-                    int index = text.indexOf(":");
+                    int index = text.lastIndexOf(":");
                     if(index != -1) {
                         text = text.substring(index + 1);
                     }
@@ -304,39 +302,78 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
         if(!clickLastMsg(nodeInfo)){ // 通知栏进入, 可能消息发送过快, 错过红包在最新消息位置
             AccessibilityNodeInfo real = AccessibilityUtils.findNodeInfosByIdLast(nodeInfo, ID_LIST_CHAT_ITEM_VIEW);
             if(real != null){ // 找历史最新的红包
-                if(config().isRobSelf() && isMemberChatUi(nodeInfo)){ // 群聊, 可以抢自己的
+                if(clickRedPacket(nodeInfo, real)){
                     isReceived = true;
-                    AccessibilityUtils.performClick(real);
-                }else{
-                    List<AccessibilityNodeInfo> other = real.findAccessibilityNodeInfosByText(KEY_SEARCH);
-                    if(other != null && !other.isEmpty()){
-                        isReceived = true;
-                        AccessibilityUtils.performClick(real);
-                    }
                 }
             }else{
                 isReceived = false;
                 LogUtils.printOut("------这可能真的是个假红包------");
+                back(2);
             }
         }
+    }
+
+    /** 抢红包模式 */
+    private boolean clickRedPacket(AccessibilityNodeInfo nodeInfo, AccessibilityNodeInfo real) {
+        boolean flag = false;
+        int wxMode = config().getWXMode();
+        if (wxMode == Config.WX_MODE_0){
+            if(isMemberChatUi(nodeInfo)){ // 群聊, 可以抢自己的
+                flag = true;
+                AccessibilityUtils.performClick(real);
+            }else{ // 单聊, 不可以抢自己的
+                List<AccessibilityNodeInfo> other = real.findAccessibilityNodeInfosByText(KEY_SEARCH);
+                if(other != null && !other.isEmpty()){
+                    flag = true;
+                    AccessibilityUtils.performClick(real);
+                }
+            }
+        }else if(wxMode == Config.WX_MODE_1){
+            if(isMemberChatUi(nodeInfo)){ // 群聊, 可以抢自己的
+                flag = true;
+                AccessibilityUtils.performClick(real);
+            }
+        }else if(wxMode == Config.WX_MODE_2){
+            if(isMemberChatUi(nodeInfo)){ // 群聊, 不可以抢自己的
+                List<AccessibilityNodeInfo> other = real.findAccessibilityNodeInfosByText(KEY_SEARCH);
+                if(other != null && !other.isEmpty()){
+                    flag = true;
+                    AccessibilityUtils.performClick(real);
+                }
+            }
+        }else if(wxMode == Config.WX_MODE_3){
+            // 通知手动抢
+            NotifyUtils.playEffect(context(), config());
+        }
+        return flag;
     }
 
     /** 点最新消息 */
     private boolean clickLastMsg(AccessibilityNodeInfo nodeInfo) {
         boolean isClick = false;
-        AccessibilityNodeInfo item = AccessibilityUtils.findNodeInfosByIdLast(nodeInfo, ID_LIST_CHAT_ITEM);
+        AccessibilityNodeInfo listView = AccessibilityUtils.findNodeInfosById(nodeInfo, ID_LIST_CHAT);
+        if(listView == null){
+            return isClick;
+        }
+        int childCount = listView.getChildCount();
+        if(childCount <= 0){
+            return isClick;
+        }
+        AccessibilityNodeInfo item = listView.getChild(childCount - 1);
         if(item != null){ // 每一条新消息都试着点红包
             AccessibilityNodeInfo real = AccessibilityUtils.findNodeInfosById(item, ID_LIST_CHAT_ITEM_VIEW);
             if(real != null) { // 真红包
-                if(config().isRobSelf() && isMemberChatUi(nodeInfo)){ // 群聊, 可以抢自己的
-                    isReceived = isClick = true;
-                    AccessibilityUtils.performClick(real);
-                }else{
-                    List<AccessibilityNodeInfo> other = real.findAccessibilityNodeInfosByText(KEY_SEARCH);
-                    if(other != null && !other.isEmpty()){
-                        isReceived = isClick = true;
-                        AccessibilityUtils.performClick(real);
+
+                // 新版本后, 1100(包括)以上, 能判断红包是否已经领取
+                if(mService.getWeChatPackageInfo().versionCode >= WeChatConfig.V_1100){
+                    AccessibilityNodeInfo realToo = AccessibilityUtils.findNodeInfosByTexts(real, KEY_SEARCH, KEY_SEARCH_SELF);
+                    if(realToo == null){
+                        return isClick;
                     }
+                }
+
+                if(clickRedPacket(nodeInfo, real)){
+                    isReceived = isClick = true;
                 }
             }else{
                 isClick = false;
@@ -403,15 +440,30 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
 
     /** 返回 */
     private void back() {
+        back(-1);
+    }
+
+    /** 返回 */
+    private void back(int count) {
+        silence(); // 沉默
+
+        if(!config().isSmartBackWeChat()){
+            return;
+        }
+
         LogUtils.printOut("AppState: " + mAppState);
-        silence();
         int backCount;
-        if(mAppState == APP_STATE_BACKGROUND && config().isRobCompleteToHome()){
+        if(mAppState == APP_STATE_BACKGROUND){
             mAppState = APP_STATE_FOREGROUND;
             backCount = 3;
         }else{
             backCount = 1;
         }
+
+        if(count != -1){
+            backCount = count;
+        }
+
         for (int i = 0; i < backCount; i++) {
             AccessibilityUtils.performBack(mService);
             if(i < backCount - 1){

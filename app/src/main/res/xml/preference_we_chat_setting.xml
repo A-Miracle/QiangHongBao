@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.afollestad.appthemeengine.prefs.ATEPreferenceCategory
+        android:title="微信抢红包设置"
+        app:ateKey_prefCategory_textColor="?ate_key">
+
+        <com.ctao.qhb.prefs.ATEPreference
+            android:key="model"
+            android:persistent="false"
+            android:summary="自动抢"
+            android:title="抢红包模式"
+            app:ateKey_pref="?ate_key" />
+
+        <com.ctao.qhb.prefs.ATEPreference
+            android:key="delay_time"
+            android:persistent="false"
+            android:summary="不延时"
+            android:title="延时抢"
+            app:ateKey_pref="?ate_key" />
+
+        <com.afollestad.appthemeengine.prefs.ATESwitchPreference
+            android:defaultValue="true"
+            android:key="smart_back_wx"
+            android:persistent="true"
+            android:title="智能返回"
+            android:summary="抢完后智能返回到桌面或当前会话"
+            android:widgetLayout="@layout/ate_preference_checkbox"
+            app:ateKey_pref_switch="?ate_key" />
+
+    </com.afollestad.appthemeengine.prefs.ATEPreferenceCategory>
+
+</PreferenceScreen>

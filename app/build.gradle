@@ -44,7 +44,8 @@ android {
             applicationIdSuffix ".debug"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "boolean", "BUGLY_DEBUG", "true"
-            versionNameSuffix " QHB" + buildTime(" - yyyy-MM-dd HH:mm")
+            versionNameSuffix " QHB"
+            resValue "string", "fileprovider", "com.ctao.qhb.debug.fileprovider"
         }
 
         release {
@@ -55,6 +56,7 @@ android {
             jniDebuggable false // jni debug模式
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "boolean", "BUGLY_DEBUG", "false" // 是否输出LOG信息
+            resValue "string", "fileprovider", "com.ctao.qhb.fileprovider"
         }
     }
 }
@@ -63,6 +65,43 @@ def buildTime(String format) {
     def df = new SimpleDateFormat(format)
     df.setTimeZone(TimeZone.getDefault())
     return df.format(new Date())
+}
+
+def buildTime() {
+    return buildTime("yyyyMMdd'-'HHmm")
+}
+
+def apkName = "QHB"
+android.applicationVariants.all { variant ->
+    def versionName = android.defaultConfig.versionName
+    def versionCode = android.defaultConfig.versionCode
+    def applicationId = apkName
+    if (variant.name.contains("debug") || variant.buildType.name.contains("debug")) {
+        /*variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                //def fileName =  applicationId + "-V" + versionName + "-" + versionCode + "-" + variant.productFlavors[0].name + "-" + buildTime() + "-debug.apk"
+                def fileName =  applicationId + "-debug-" + buildTime("yyyy.MM.dd-HH.mm") + ".apk"
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }*/
+    } else if (variant.buildType.zipAlignEnabled) {
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def fileName = "channel/" + applicationId + "-V" + versionName + "-" + versionCode + "-" + buildTime() + ".apk"
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    } else {
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def fileName = "channel/" + applicationId + "-V" + versionName + "-" + versionCode + "-" + buildTime() + "-unaligned.apk"
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    }
 }
 
 repositories {
@@ -85,6 +124,11 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     compile 'com.afollestad.material-dialogs:core:0.9.4.5'
     compile 'com.afollestad.material-dialogs:commons:0.9.4.5'
+
+    //retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.3.0' //Proguard
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0' //Proguard
+    compile 'com.squareup.retrofit2:converter-scalars:2.3.0' //Proguard
 
     //Proguard
     compile 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="qhb_mode">
+        <item>自动抢</item>
+        <item>抢群聊，包括自己发的</item>
+        <item>抢群聊，不包括自己发的</item>
+        <item>通知手动抢</item>
+    </array>
+
+    <array name="qhb_back">
+        <item>查看领取详情</item>
+        <item>智能返回</item>
+    </array>
+</resources>

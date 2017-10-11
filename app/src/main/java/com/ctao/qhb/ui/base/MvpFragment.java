@@ -2,6 +2,7 @@ package com.ctao.qhb.ui.base;
 
 import com.ctao.baselib.ui.BaseFragment;
 import com.ctao.qhb.event.MessageEvent;
+import com.ctao.qhb.interact.view.ILoadingView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -13,7 +14,7 @@ import butterknife.Unbinder;
 /**
  * Created by A Miracle on 2017/6/24.
  */
-public abstract class MvpFragment extends BaseFragment{
+public abstract class MvpFragment extends BaseFragment implements ILoadingView{
     private Unbinder unbinder;
 
     @Override
@@ -39,5 +40,26 @@ public abstract class MvpFragment extends BaseFragment{
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
 
+    }
+
+    @Override
+    public void showProgress() {
+        if(getActivity() instanceof MvpActivity){
+            ((MvpActivity)getActivity()).showProgress();
+        }
+    }
+
+    @Override
+    public void hideProgress() {
+        if(getActivity() instanceof MvpActivity){
+            ((MvpActivity)getActivity()).hideProgress();
+        }
+    }
+
+    @Override
+    public void showFailure(String msg, String... tag) {
+        if(getActivity() instanceof MvpActivity){
+            ((MvpActivity)getActivity()).showFailure(msg, tag);
+        }
     }
 }

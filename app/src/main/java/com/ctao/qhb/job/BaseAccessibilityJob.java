@@ -25,4 +25,7 @@ public abstract class BaseAccessibilityJob implements IAccessibilityJob {
     public Context context() {
         return Global.getContext();
     }
+
+    @Override
+    public void onDestroy() { }
 }

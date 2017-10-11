@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.afollestad.appthemeengine.prefs.ATEPreferenceCategory
+        android:title="关于快手抢红包"
+        app:ateKey_prefCategory_textColor="?ate_key">
+
+        <com.ctao.qhb.prefs.ATEPreference
+            android:key="version"
+            android:persistent="false"
+            android:summary="v 1.0"
+            android:title="当前版本"
+            app:ateKey_pref="?ate_key" />
+
+        <com.ctao.qhb.prefs.ATEPreference
+            android:key="update"
+            android:persistent="false"
+            android:title="检查更新"
+            app:ateKey_pref="?ate_key" />
+
+        <com.ctao.qhb.prefs.ATEPreference
+            android:key="reward"
+            android:persistent="false"
+            android:summary="您的支持，是作者的无限动力"
+            android:title="打赏作者"
+            app:ateKey_pref="?ate_key" />
+
+        <com.ctao.qhb.prefs.ATEPreference
+            android:key="feedback"
+            android:persistent="false"
+            android:summary="发送至作者邮箱：1243679197@qq.com"
+            android:title="意见反馈"
+            app:ateKey_pref="?ate_key" />
+
+        <com.ctao.qhb.prefs.ATEPreference
+            android:key="share"
+            android:persistent="false"
+            android:title="推荐给朋友"
+            app:ateKey_pref="?ate_key" />
+
+    </com.afollestad.appthemeengine.prefs.ATEPreferenceCategory>
+
+</PreferenceScreen>

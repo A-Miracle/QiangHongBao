@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.afollestad.appthemeengine.prefs.ATEPreferenceCategory
+        android:title="设置"
+        app:ateKey_prefCategory_textColor="?ate_key">
+
+        <com.afollestad.appthemeengine.prefs.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="lock_screen_automatic_grab"
+            android:persistent="true"
+            android:title="锁屏下自动抢红包"
+            android:summary="如果设置了手势、PIN等密码不支持自动抢"
+            android:widgetLayout="@layout/ate_preference_checkbox"
+            app:ateKey_pref_switch="?ate_key" />
+
+        <com.afollestad.appthemeengine.prefs.ATESwitchPreference
+            android:defaultValue="true"
+            android:key="voice"
+            android:persistent="true"
+            android:title="声音"
+            android:widgetLayout="@layout/ate_preference_checkbox"
+            app:ateKey_pref_switch="?ate_key" />
+
+        <com.afollestad.appthemeengine.prefs.ATESwitchPreference
+            android:defaultValue="true"
+            android:key="vibration"
+            android:persistent="true"
+            android:title="震动"
+            android:widgetLayout="@layout/ate_preference_checkbox"
+            app:ateKey_pref_switch="?ate_key" />
+
+        <com.afollestad.appthemeengine.prefs.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="night_not_disturb"
+            android:persistent="true"
+            android:summary="夜间免打扰设置"
+            android:title="23:00-07:00"
+            android:widgetLayout="@layout/ate_preference_checkbox"
+            app:ateKey_pref_switch="?ate_key" />
+
+    </com.afollestad.appthemeengine.prefs.ATEPreferenceCategory>
+
+</PreferenceScreen>

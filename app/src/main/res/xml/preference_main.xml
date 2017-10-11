@@ -11,28 +11,27 @@
             android:key="platform_WeChat"
             android:persistent="true"
             android:title="微信"
+            android:summary="支持 微信6.5.10 以上"
             android:widgetLayout="@layout/ate_preference_checkbox"
             app:ateKey_pref_switch="?ate_key" />
 
         <com.afollestad.appthemeengine.prefs.ATESwitchPreference
-            android:enabled="false"
             android:defaultValue="false"
             android:key="platform_QQ"
             android:persistent="true"
             android:title="QQ"
             android:widgetLayout="@layout/ate_preference_checkbox"
-            android:summary="开发中..."
-            app:ateKey_pref_color="?ate_key" />
+            android:summary="支持 QQ7.1.8 以上"
+            app:ateKey_pref_switch="?ate_key" />
 
         <com.afollestad.appthemeengine.prefs.ATESwitchPreference
-            android:enabled="false"
             android:defaultValue="false"
             android:key="platform_TIM"
             android:persistent="true"
             android:title="TIM"
             android:widgetLayout="@layout/ate_preference_checkbox"
-            android:summary="开发中..."
-            app:ateKey_pref_color="?ate_key" />
+            android:summary="支持 TIM1.2.0 以上"
+            app:ateKey_pref_switch="?ate_key" />
 
     </com.afollestad.appthemeengine.prefs.ATEPreferenceCategory>
 
@@ -47,19 +46,9 @@
             app:ateKey_pref="?ate_key" />
 
         <com.ctao.qhb.prefs.ATEPreference
-            android:enabled="false"
             android:key="platform_QQ_setting"
             android:persistent="false"
-            android:title="QQ设置"
-            android:summary="开发中..."
-            app:ateKey_pref="?ate_key" />
-
-        <com.ctao.qhb.prefs.ATEPreference
-            android:enabled="false"
-            android:key="platform_TIM_setting"
-            android:persistent="false"
-            android:title="TIM设置"
-            android:summary="开发中..."
+            android:title="QQ、TIM设置"
             app:ateKey_pref="?ate_key" />
 
     </com.afollestad.appthemeengine.prefs.ATEPreferenceCategory>
@@ -71,7 +60,7 @@
         <com.ctao.qhb.prefs.ATEPreference
             android:key="setting"
             android:persistent="false"
-            android:title="其它设置"
+            android:title="全局设置"
             app:ateKey_pref="?ate_key" />
 
         <com.ctao.qhb.prefs.ATEPreference

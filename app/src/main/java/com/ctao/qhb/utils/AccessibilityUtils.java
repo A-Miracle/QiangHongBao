@@ -1,9 +1,15 @@
 package com.ctao.qhb.utils;
 
 import android.accessibilityservice.AccessibilityService;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 import android.view.accessibility.AccessibilityNodeInfo;
+
+import com.ctao.baselib.Global;
 
 import java.util.List;
 
@@ -63,6 +69,22 @@ public class AccessibilityUtils {
         return null;
     }
 
+    /** EditText setText */
+    public static void setText(AccessibilityNodeInfo input, String text) {
+        AccessibilityNodeInfoCompat compat = new AccessibilityNodeInfoCompat(input);
+        if (Build.VERSION.SDK_INT > 21) {
+            Bundle arguments = new Bundle();
+            arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, text);
+            compat.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+        }else{
+            ClipboardManager clipboard = (ClipboardManager) Global.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("text", text);
+            clipboard.setPrimaryClip(clip);
+            compat.performAction(AccessibilityNodeInfo.ACTION_FOCUS);
+            compat.performAction(AccessibilityNodeInfo.ACTION_PASTE);
+        }
+    }
+
     /** 返回主界面事件*/
     public static void performHome(AccessibilityService service) {
         if(service == null) {
@@ -81,18 +103,6 @@ public class AccessibilityUtils {
 
     /** 点击事件 */
     public static void performClick(AccessibilityNodeInfo nodeInfo) {
-        if(nodeInfo == null) {
-            return;
-        }
-        if(nodeInfo.isClickable()) {
-            nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
-        } else {
-            performClick(nodeInfo.getParent());
-        }
-    }
-
-    /** 点击事件 */
-    public static void performClick(AccessibilityNodeInfoCompat nodeInfo) {
         if(nodeInfo == null) {
             return;
         }

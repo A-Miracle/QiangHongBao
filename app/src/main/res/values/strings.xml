@@ -1,4 +1,25 @@
 <resources>
     <string name="app_name">快手抢红包</string>
-    <string name="accessibility_description">抢红包神器</string>
+    <string name="accessibility_description">抢红包神器，支持微信、QQ、TIM</string>
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+    <string name="label_about">关于</string>
+    <string name="copyright">Copyright © 2017&#045;%d 可可科技</string>
+
+    <string name="agreement_title">免责声明</string>
+    <string name="agreement_message">本软件仅供娱乐消遣使用，完全模拟人工操作，抢红包速度取决于你手机的性能与网络，不涉及任何第三方软件接口，本软件无病毒、不收集用户隐私信息，禁止使用本软件参与赌博活动。一切因使用“快手抢红包”造成的任何后果，快手抢红包概不负责，亦不承担任何法律责任!</string>
+    <string name="open_service_title">需要开启辅助服务正常使用</string>
+    <string name="open_service_button">打开辅助服务</string>
+
+    <!--微信设置-->
+    <string name="we_chat_setting">微信设置</string>
+    <string name="qhb_mode">抢红包模式</string>
+    <string name="qhb_delay_rob">延时抢</string>
+    <string name="qhb_delay_rob_hint">单位：秒</string>
+    <string name="qhb_delay_no">不延时</string>
+    <string name="qhb_delay_time">延时{0}秒</string>
+
+    <!--QQ设置-->
+    <string name="qq_setting">QQ、TIM设置</string>
+    <string name="qq_receive_after">抢完之后</string>
 </resources>

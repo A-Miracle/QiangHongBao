@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.afollestad.appthemeengine.prefs.ATEPreferenceCategory
+        android:title="QQ、TIM抢红包设置"
+        app:ateKey_prefCategory_textColor="?ate_key">
+
+        <com.ctao.qhb.prefs.ATEPreference
+            android:key="model"
+            android:persistent="false"
+            android:summary="自动抢"
+            android:title="抢红包模式"
+            app:ateKey_pref="?ate_key" />
+
+        <com.ctao.qhb.prefs.ATEPreference
+            android:key="delay_time"
+            android:persistent="false"
+            android:summary="不延时"
+            android:title="延时抢"
+            app:ateKey_pref="?ate_key" />
+
+        <com.ctao.qhb.prefs.ATEPreference
+            android:key="smart_back_qq"
+            android:persistent="false"
+            android:summary="查看领取详情"
+            android:title="抢完之后"
+            app:ateKey_pref="?ate_key" />
+
+        <com.afollestad.appthemeengine.prefs.ATESwitchPreference
+            android:defaultValue="true"
+            android:key="qq_word_setting"
+            android:persistent="true"
+            android:title="开启QQ口令红包"
+            android:summary="收到口令红包自动回复口令领取"
+            android:widgetLayout="@layout/ate_preference_checkbox"
+            app:ateKey_pref_switch="?ate_key" />
+
+        <com.ctao.qhb.prefs.ATEPreference
+            android:key="defects"
+            android:persistent="false"
+            android:summary="消息列表中收到红包不能自动抢"
+            android:title="缺陷"
+            app:ateKey_pref="?ate_key" />
+    </com.afollestad.appthemeengine.prefs.ATEPreferenceCategory>
+
+</PreferenceScreen>

@@ -6,6 +6,8 @@ import com.afollestad.appthemeengine.ATE;
 import com.ctao.baselib.Global;
 import com.ctao.baselib.utils.LogUtils;
 import com.ctao.qhb.job.IAccessibilityJob;
+import com.ctao.qhb.job.QQAccessibilityJob;
+import com.ctao.qhb.job.TIMAccessibilityJob;
 import com.ctao.qhb.job.WeChatAccessibilityJob;
 import com.ctao.qhb.service.QHBService;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -22,6 +24,8 @@ public final class App extends Application{
 
     private static final Class[] ACCESSIBILITY_JOBS = {
             WeChatAccessibilityJob.class,
+            QQAccessibilityJob.class,
+            TIMAccessibilityJob.class,
     };
 
     private List<IAccessibilityJob> mAccessibilityJobs;
@@ -32,7 +36,7 @@ public final class App extends Application{
         super.onCreate();
         sApp = this;
         Global.init(this);
-        LogUtils.init(true, "qhb", null);
+        LogUtils.init(BuildConfig.DEBUG, "qhb", null);
         initTheme();
 
         // 初始化 Bugly [全开]
