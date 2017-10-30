@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <paths>
+        <!--"/storage/emulated/0"-->
         <external-path path="" name="my_external"/>
+        <!--"/data/data/包名/cache"-->
         <cache-path path="" name="my_cache"/>
+        <!--"/data/data/包名/files"-->
         <files-path path="" name="my_file"/>
+        <!--"/storage/emulated/0/Android/data/包名/files"-->
+        <external-files-path path="" name="my_external_path" />
+        <!--""/storage/emulated/0/Android/data/包名/cache""-->
+        <external-cache-path path="" name="my_external_cache" />
+        <!--root-path代表/也就是Android设备的根目录，该目录下包含着手机内部存储器，外置SD卡等所有文件的目录-->
+        <root-path path="" name="my_root" />
     </paths>
 </resources>
