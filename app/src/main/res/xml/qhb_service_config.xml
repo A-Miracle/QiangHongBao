@@ -6,7 +6,7 @@
     android:packageNames="com.tencent.mm,com.tencent.mobileqq,com.tencent.tim"
     android:accessibilityFeedbackType="feedbackGeneric"
     android:notificationTimeout="100"
-    android:accessibilityFlags="flagDefault"
+    android:accessibilityFlags="flagDefault|flagRetrieveInteractiveWindows"
     android:canRetrieveWindowContent="true"/>
 <!--
 android:description

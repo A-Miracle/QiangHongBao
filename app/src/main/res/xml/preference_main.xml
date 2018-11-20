@@ -11,7 +11,7 @@
             android:key="platform_WeChat"
             android:persistent="true"
             android:title="微信"
-            android:summary="支持 微信6.5.10 以上"
+            android:summary="支持 微信6.7.3 以上"
             android:widgetLayout="@layout/ate_preference_checkbox"
             app:ateKey_pref_switch="?ate_key" />
 

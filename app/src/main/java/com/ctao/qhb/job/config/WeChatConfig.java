@@ -8,6 +8,7 @@ import android.util.SparseArray;
 public class WeChatConfig {
     public static final int V_1080 = 1080;
     public static final int V_1100 = 1100;
+    public static final int V_1360 = 1360;
 
     private SparseArray<Value> mMap = new SparseArray<>();
     {
@@ -37,6 +38,20 @@ public class WeChatConfig {
                 "com.tencent.mm:id/s", // ItemView, clickable=false;
                 "com.tencent.mm:id/a8q", // 红包ItemView, clickable=true;
                 "com.tencent.mm:id/iq" // 文本ItemView, clickable=true;
+        ));
+
+        // 微信6.7.3; versionCode = 1360;-----------------------------------
+        mMap.put(1360, new Value(
+                "com.tencent.mm:id/cnu", // '开'
+                "com.tencent.mm:id/j6", // 聊天标题
+                "com.tencent.mm:id/azj", // 聊天记录列表中Item
+                "com.tencent.mm:id/lu", // 聊天记录列表中Item小圆点
+                "com.tencent.mm:id/azn", // 聊天记录列表中Item最新消息
+                "com.tencent.mm:id/cpj", // 聊天记录列表
+                "com.tencent.mm:id/ahf", // 当前会话列表(ListView 没有Id, 父级FrameLayout Id )
+                "com.tencent.mm:id/a5", // ItemView, clickable=false;
+                "com.tencent.mm:id/aku", // 红包ItemView, clickable=true;
+                "com.tencent.mm:id/mq" // 文本ItemView, clickable=true;
         ));
     }
 

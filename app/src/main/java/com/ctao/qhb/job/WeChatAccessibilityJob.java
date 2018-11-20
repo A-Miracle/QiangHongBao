@@ -59,6 +59,9 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
     private final static String CLASSNAME_2 = "com.tencent.mm.plugin.luckymoney.ui.En_fba4b94f"; // 拆红包
     private final static String CLASSNAME_3 = "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI"; // 红包领取详情
 
+    // 微信6.7.3; versionCode = 1360;-----------------------------------
+    private final static String CLASSNAME_22 = "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyReceiveUI"; // 拆红包
+
     private final static String LABEL_1 = "发了一个红包";
     private final static String LABEL_2 = "给你发了一个红包";
     private final static String LABEL_3 = "发了一个红包，金额随机";
@@ -100,7 +103,9 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
         int versionCode = mService.getWeChatPackageInfo().versionCode;
         WeChatConfig.Value value = null;
 
-        if(versionCode >= WeChatConfig.V_1100){
+        if(versionCode >= WeChatConfig.V_1360){
+            value = config.getVersion(WeChatConfig.V_1360);
+        }else if(versionCode >= WeChatConfig.V_1100){
             value = config.getVersion(WeChatConfig.V_1100);
         }else if(versionCode >= WeChatConfig.V_1080){
             value = config.getVersion(WeChatConfig.V_1080);
@@ -214,11 +219,13 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
         if(className == null){
             return;
         }
+        LogUtils.printOut("windowStateEvent: " + className.toString());
         switch (className.toString()){
             case CLASSNAME_1:
                 mCurrentWindow = WINDOW_LAUNCHER_UI;
                 break;
             case CLASSNAME_2:
+            case CLASSNAME_22:
                 mCurrentWindow = WINDOW_LUCKY_MONEY_OPEN;
                 break;
             case CLASSNAME_3:
@@ -352,6 +359,11 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
     private boolean clickLastMsg(AccessibilityNodeInfo nodeInfo) {
         boolean isClick = false;
         AccessibilityNodeInfo listView = AccessibilityUtils.findNodeInfosById(nodeInfo, ID_LIST_CHAT);
+
+        if(mService.getWeChatPackageInfo().versionCode >= WeChatConfig.V_1360){
+            listView = listView.getChild(0);
+        }
+
         if(listView == null){
             return isClick;
         }
@@ -385,6 +397,10 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
 
     /** 拆红包 */
     private void openRedPacket() {
+        if(!isReceived){
+            return;
+        }
+
         AccessibilityNodeInfo nodeInfo = mService.getRootInActiveWindow();
         if(nodeInfo == null) {
             LogUtils.printErr(TAG, "rootWindow为空");
@@ -412,7 +428,7 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
         if(button_open != null) {
             final AccessibilityNodeInfo n = button_open;
             long sDelayTime = config().getWeChatOpenDelayTime(); // 延时时间
-            if(sDelayTime <= 0) {
+            if(sDelayTime > 0) {
                 Global.getHandler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
