@@ -219,7 +219,6 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
         if(className == null){
             return;
         }
-        LogUtils.printOut("windowStateEvent: " + className.toString());
         switch (className.toString()){
             case CLASSNAME_1:
                 mCurrentWindow = WINDOW_LAUNCHER_UI;
@@ -236,13 +235,11 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
                 break;
         }
 
-        if(!isReceived) { // 未收到红包, 下面操作不执行
-            return;
-        }
-
         switch (mCurrentWindow){
             case WINDOW_LAUNCHER_UI:
-                clickRedPacket(); // 在聊天界面, 去点中红包
+                if(isReceived) {
+                    clickRedPacket(); // 在聊天界面, 去点中红包
+                }
                 break;
             case WINDOW_LUCKY_MONEY_OPEN:
                 openRedPacket(); // 点中了红包, 下一步就是去拆红包
@@ -267,7 +264,7 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
         // 直接去获取当前会话的最后一条Item, 不为null, 则是当前会话列表
         AccessibilityNodeInfo item = AccessibilityUtils.findNodeInfosByIdLast(nodeInfo, ID_LIST_CHAT_ITEM);
         if(item != null){
-            if(isSilence && mService.getWeChatPackageInfo().versionCode < WeChatConfig.V_1100){ // 沉默中, return
+            if(isSilence){ // 沉默中, return
                 return;
             }
             clickLastMsg(nodeInfo);
@@ -300,6 +297,9 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
 
     /** 通知栏进来-点红包 */
     private void clickRedPacket() {
+        if(isSilence){
+            return;
+        }
         AccessibilityNodeInfo nodeInfo = mService.getRootInActiveWindow();
         if(nodeInfo == null) {
             LogUtils.printErr(TAG, "rootWindow为空");
@@ -307,8 +307,23 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
         }
 
         if(!clickLastMsg(nodeInfo)){ // 通知栏进入, 可能消息发送过快, 错过红包在最新消息位置
+            AccessibilityNodeInfo item = AccessibilityUtils.findNodeInfosByIdLast(nodeInfo, ID_LIST_CHAT_ITEM);
+            if(item == null){
+                return; // 不在会话页, 直接 return
+            }
+
             AccessibilityNodeInfo real = AccessibilityUtils.findNodeInfosByIdLast(nodeInfo, ID_LIST_CHAT_ITEM_VIEW);
             if(real != null){ // 找历史最新的红包
+
+                // 新版本后, 1100(包括)以上, 能判断红包是否已经领取
+                if(mService.getWeChatPackageInfo().versionCode >= WeChatConfig.V_1100){
+                    AccessibilityNodeInfo realToo = AccessibilityUtils.findNodeInfosByTexts(real, KEY_SEARCH, KEY_SEARCH_SELF);
+                    if(realToo == null){
+                        isReceived = false;
+                        return;
+                    }
+                }
+
                 if(clickRedPacket(nodeInfo, real)){
                     isReceived = true;
                 }
@@ -322,6 +337,7 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
 
     /** 抢红包模式 */
     private boolean clickRedPacket(AccessibilityNodeInfo nodeInfo, AccessibilityNodeInfo real) {
+        silence();
         boolean flag = false;
         int wxMode = config().getWXMode();
         if (wxMode == Config.WX_MODE_0){
@@ -359,14 +375,14 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
     private boolean clickLastMsg(AccessibilityNodeInfo nodeInfo) {
         boolean isClick = false;
         AccessibilityNodeInfo listView = AccessibilityUtils.findNodeInfosById(nodeInfo, ID_LIST_CHAT);
-
-        if(mService.getWeChatPackageInfo().versionCode >= WeChatConfig.V_1360){
-            listView = listView.getChild(0);
-        }
-
         if(listView == null){
             return isClick;
         }
+
+        if(mService.getWeChatPackageInfo().versionCode >= WeChatConfig.V_1360 && listView.getChildCount() > 0){
+            listView = listView.getChild(0);
+        }
+
         int childCount = listView.getChildCount();
         if(childCount <= 0){
             return isClick;
@@ -397,10 +413,6 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
 
     /** 拆红包 */
     private void openRedPacket() {
-        if(!isReceived){
-            return;
-        }
-
         AccessibilityNodeInfo nodeInfo = mService.getRootInActiveWindow();
         if(nodeInfo == null) {
             LogUtils.printErr(TAG, "rootWindow为空");
@@ -461,6 +473,7 @@ public class WeChatAccessibilityJob extends BaseAccessibilityJob {
 
     /** 返回 */
     private void back(int count) {
+        LogUtils.printOut("back: " + count);
         silence(); // 沉默
 
         if(!config().isSmartBackWeChat()){
