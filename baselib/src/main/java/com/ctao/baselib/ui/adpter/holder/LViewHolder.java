@@ -2,10 +2,10 @@ package com.ctao.baselib.ui.adpter.holder;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.StringRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IdRes;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.StringRes;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;

@@ -2,7 +2,8 @@ package com.ctao.qhb.utils;
 
 import android.net.Uri;
 import android.os.Build;
-import android.support.v4.content.FileProvider;
+
+import androidx.core.content.FileProvider;
 
 import com.ctao.baselib.Global;
 import com.ctao.qhb.R;

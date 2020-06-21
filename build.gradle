@@ -2,11 +2,12 @@
 
 buildscript {
     repositories {
+        google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
-
+        classpath 'com.android.tools.build:gradle:3.5.2'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.1'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -14,8 +15,11 @@ buildscript {
 
 allprojects {
     repositories {
+        google()
         jcenter()
+        mavenCentral() // jcenter() works as well because it pulls from Maven Central
         maven { url "https://jitpack.io" }
+        maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
     }
 }
 
@@ -25,13 +29,12 @@ task clean(type: Delete) {
 
 //全局配置
 ext {
-    compileSdkVersion =  25
-    buildToolsVersion =  "25.0.3"
+    compileSdkVersion =  29
+    buildToolsVersion =  "29.0.3"
 
-    minSdkVersion =  16
-    targetSdkVersion =  25
-    versionCode =  9
-    versionName =  "1.4.1"
+    minSdkVersion =  21
+    targetSdkVersion =  29
+    versionCode =  4
+    versionName =  "1.1.2"
 
-    supportLibraryVersion = "25.+"
 }

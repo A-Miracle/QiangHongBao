@@ -42,6 +42,7 @@
             android:name=".ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -70,7 +71,7 @@
                 android:resource="@xml/qhb_service_config" />
         </service>
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="@string/fileprovider"
             android:grantUriPermissions="true"
             android:exported="false">

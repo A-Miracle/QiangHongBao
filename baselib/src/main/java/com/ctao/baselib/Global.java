@@ -20,6 +20,7 @@ public class Global {
     public static void init(Application app){
         mContext = app;
         mMainThreadHandler = new Handler();
+        mMainThreadId = android.os.Process.myTid();
     }
 
     public static Context getContext(){

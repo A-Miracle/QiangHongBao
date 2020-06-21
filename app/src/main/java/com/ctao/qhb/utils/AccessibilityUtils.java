@@ -6,8 +6,9 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 import android.view.accessibility.AccessibilityNodeInfo;
+
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 
 import com.ctao.baselib.Global;
 

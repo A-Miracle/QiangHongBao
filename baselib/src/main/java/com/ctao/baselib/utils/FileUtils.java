@@ -5,6 +5,9 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.text.TextUtils;
+
+import androidx.core.content.FileProvider;
 
 import com.ctao.baselib.Global;
 
@@ -79,6 +82,16 @@ public class FileUtils {
      * @return
      */
     public static Uri saveBitmapToFile(File file, Bitmap bitmap, Bitmap.CompressFormat format) {
+        return saveBitmapToFile(file, null, bitmap, format);
+    }
+
+    /**
+     * 保存bitmap到file
+     * @param file
+     * @param bitmap
+     * @return
+     */
+    public static Uri saveBitmapToFile(File file, String fileProvider, Bitmap bitmap, Bitmap.CompressFormat format) {
         if (file == null || bitmap == null || file.isDirectory()) {
             return null;
         }
@@ -95,13 +108,20 @@ public class FileUtils {
             bitmap.compress(format, 100, fOut);
             fOut.flush();
 
-            Uri fromFile = Uri.fromFile(file);
+            Uri fromFile;
+            if(TextUtils.isEmpty(fileProvider)){
+                fromFile = Uri.fromFile(file);
+            }else {
+                fromFile = FileProvider.getUriForFile(Global.getContext(), fileProvider, file);
+            }
 
-            // 其次把文件插入到系统图库
-            MediaStore.Images.Media.insertImage(Global.getContext().getContentResolver(), file.getAbsolutePath(), file.getName(), null);
+            if(false){
+                // 其次把文件插入到系统图库
+                MediaStore.Images.Media.insertImage(Global.getContext().getContentResolver(), file.getAbsolutePath(), file.getName(), null);
 
-            // 最后通知图库更新
-            Global.getContext().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, fromFile));
+                // 最后通知图库更新
+                Global.getContext().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, fromFile));
+            }
 
             return fromFile;
         } catch (IOException e) {

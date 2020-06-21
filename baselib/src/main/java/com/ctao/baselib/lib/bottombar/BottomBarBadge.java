@@ -5,14 +5,15 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.VisibleForTesting;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.AppCompatImageView;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
-import android.widget.TextView;
+
+import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.view.ViewCompat;
 
 import com.ctao.baselib.R;
 
@@ -33,7 +34,7 @@ import com.ctao.baselib.R;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class BottomBarBadge extends android.support.v7.widget.AppCompatTextView {
+class BottomBarBadge extends AppCompatTextView {
     @VisibleForTesting
     static final String STATE_COUNT = "STATE_BADGE_COUNT_FOR_TAB_";
 

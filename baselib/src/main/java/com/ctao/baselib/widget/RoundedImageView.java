@@ -10,8 +10,10 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
+
+import androidx.appcompat.widget.AppCompatImageView;
 
 import com.ctao.baselib.R;
 import com.ctao.baselib.utils.BitmapUtils;
@@ -22,7 +24,7 @@ import com.ctao.baselib.utils.PathFactory;
  * https://github.com/A-Miracle/CustomView
  * 圆角ImageView
  */
-public class RoundedImageView extends android.support.v7.widget.AppCompatImageView {
+public class RoundedImageView extends AppCompatImageView {
 
     protected PathFactory mPathFactory;
 

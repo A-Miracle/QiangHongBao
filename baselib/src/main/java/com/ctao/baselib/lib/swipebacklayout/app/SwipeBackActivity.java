@@ -2,8 +2,9 @@
 package com.ctao.baselib.lib.swipebacklayout.app;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.ctao.baselib.lib.swipebacklayout.SwipeBackLayout;
 import com.ctao.baselib.lib.swipebacklayout.Utils;

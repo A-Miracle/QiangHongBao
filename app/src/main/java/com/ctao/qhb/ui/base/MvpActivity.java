@@ -1,6 +1,7 @@
 package com.ctao.qhb.ui.base;
 
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.ctao.baselib.ui.BaseActivity;

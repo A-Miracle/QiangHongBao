@@ -2,8 +2,9 @@ package com.ctao.qhb.ui.common;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+
+import androidx.appcompat.widget.Toolbar;
 
 import com.ctao.baselib.utils.LogUtils;
 import com.ctao.qhb.R;

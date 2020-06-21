@@ -2,8 +2,9 @@ package com.ctao.qhb.ui.common;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+
+import androidx.appcompat.widget.Toolbar;
 
 import com.ctao.baselib.utils.LogUtils;
 import com.ctao.qhb.R;
@@ -20,7 +21,8 @@ public class CommonActivity extends MvpActivity {
     public static final String TYPE_FRAGMENT = "TYPE_FRAGMENT";
     public static final String TYPE_TITLE = "TYPE_TITLE";
 
-    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
     private String title;
     private CommonFragment mFragment;

@@ -40,7 +40,7 @@ public final class App extends Application{
         initTheme();
 
         // 初始化 Bugly [全开]
-        CrashReport.initCrashReport(this, "APP ID", false);
+        //CrashReport.initCrashReport(this, "APP ID", false);
     }
 
     private void initTheme() {

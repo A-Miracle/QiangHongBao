@@ -3,8 +3,10 @@ package com.ctao.qhb.service;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v7.app.NotificationCompat;
+
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.ctao.qhb.R;
 import com.ctao.qhb.event.MessageEvent;

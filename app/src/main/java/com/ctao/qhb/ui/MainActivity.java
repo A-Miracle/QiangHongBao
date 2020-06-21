@@ -8,11 +8,12 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -53,7 +54,8 @@ import butterknife.OnClick;
  */
 public class MainActivity extends MvpActivity implements IUpdateContract.View{
 
-    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.bt_state) Button bt_state;
     private IUpdateContract.Presenter mPresenter;
     private MaterialDialog mProgress;

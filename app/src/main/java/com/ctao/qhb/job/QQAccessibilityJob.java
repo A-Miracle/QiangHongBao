@@ -7,10 +7,11 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Parcelable;
 import android.os.SystemClock;
-import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 import android.text.TextUtils;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 
 import com.ctao.baselib.Global;
 import com.ctao.baselib.utils.LogUtils;

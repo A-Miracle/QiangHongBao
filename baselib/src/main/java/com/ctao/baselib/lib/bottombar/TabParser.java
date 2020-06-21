@@ -4,8 +4,9 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.graphics.Color;
-import android.support.annotation.XmlRes;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.XmlRes;
+import androidx.core.content.ContextCompat;
+
 import android.text.TextUtils;
 
 import org.xmlpull.v1.XmlPullParserException;

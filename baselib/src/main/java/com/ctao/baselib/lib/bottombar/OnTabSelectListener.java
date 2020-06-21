@@ -1,6 +1,6 @@
 package com.ctao.baselib.lib.bottombar;
 
-import android.support.annotation.IdRes;
+import androidx.annotation.IdRes;
 
 /*
  * BottomBar library for Android
