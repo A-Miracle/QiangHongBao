@@ -1,4 +1,8 @@
-# 快手抢红包(源码不再更新, 只更新最新包)
+# 快手抢红包(项目不再维护，代码仅供参考)
+
+- 支持版本，微信6.5.10；微信6.5.13；微信6.7.3；
+- 可参考修改 WeChatConfig，抓取微信新版对应view id
+
 ![](https://raw.githubusercontent.com/A-Miracle/QiangHongBao/master/app/src/main/res/mipmap-xxhdpi/ic_launcher.png)
 
 ## 前言
